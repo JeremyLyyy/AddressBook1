@@ -1,0 +1,171 @@
+#include <iostream>
+#include<stdlib.h>
+#include<cstring>
+
+using namespace std;
+
+void showMenu();
+
+struct contact{
+  char name[20];
+  char address[20];
+  char telephone[13];
+}contact[50];
+int count=0;
+void addnew();
+void updata();
+void deletecontact();
+void Listall();
+void search();
+void showMenu()
+{
+   cout << "Enter your choice. Pick (1/6) " << endl;
+    cout << "1. Add a new contact"<< endl;
+   cout << "2. Update an existing contact"<< endl;
+   cout << "3. Delete a contact"<< endl;
+   cout << "4. List all added contacts in sorted order"<< endl;
+   cout << "5. Search for a given contact"<< endl;
+   cout << "6.Quit"<< endl;
+   int choice;
+       cin >> choice;
+    switch (choice){
+    case 1: addnew();break;
+    case 2: updata();break;
+    case 3: deletecontact();break;
+    case 4: Listall();break;
+    case 5: search();break;
+    case 6: exit(0);break;
+
+      system("cls");
+      
+         showMenu();  
+     	}
+    }
+void search(){
+   cout<<"enter the name to search"<<endl;
+   cin>>contact[count+1].name;
+  int i;
+
+  for(i=0;i<count;i++)
+  {
+    if(strcmp(contact[count+1].name,contact[i].name)==0) break;
+     
+  }
+  if(i<count)
+  {
+    cout<<"search success"<<endl;
+    cout<<contact[i].name<<'\t'<<contact[i].address<<'\t'<<contact[i].telephone<<endl;
+    cout <<"press any key to return menu";
+
+  }
+  else cout<<"search default ,press any key to return menu";
+  getwchar();
+  getwchar();
+  system("cls");
+    showMenu();
+
+}
+void deletecontact()
+{
+  int i;
+  for(i=0;i<count;i++)
+  {
+    cout<<contact[i].name<<'\t'<<contact[i].address<<'\t'<<contact[i].telephone<<endl;
+  }
+  cout<<"enter the name to delete"<<endl;
+  cin>>contact[count+1].name;
+  
+  for(i=0;i<count;i++)
+  {
+    if(strcmp(contact[count+1].name,contact[i].name)==0) break;
+  }
+  if(i<count-1)
+  {
+    contact[i]=contact[count-1]; count--;
+    cout<<"delete successful,press any key to return menu";
+      
+
+
+  }
+  else if(i==count-1) {count--;
+   cout<<"delete successful,press any key to return menu";
+
+  }
+  else cout<<"enter the wrong number,press any key to return menu";
+   getwchar();
+  getwchar();
+  system("cls");
+    showMenu();
+}
+void addnew()
+{
+  cout<<"enter the new contact"<<endl;
+  cout<<"name  address  telephone-number"<<endl;
+  cin>>contact[count].name;
+  cin>>contact[count].address;
+  cin>>contact[count].telephone;
+
+  cout<<"\nadd success,press any key to exit"<<endl;
+  count++;
+  getwchar();
+  getwchar();
+  system("cls");
+  showMenu(); 
+  
+}
+void updata(){
+  cout<<"enter the update contact"<<endl;
+  cout<<"name  address  telephone-number"<<endl;
+  cin>>contact[count+1].name;
+  cin>>contact[count+1].address;
+  cin>>contact[count+1].telephone;
+  int i;
+  for(i=0;i<count;i++)
+  {
+    if(strcmp(contact[count+1].name,contact[i].name)==0)
+    {
+      strcpy(contact[i].address,contact[count+1].address);
+      strcpy(contact[i].telephone,contact[count+1].telephone);
+      cout<<"update success"<<endl;
+      break;
+    }
+  }
+  if(i==count) cout<<"update default"<<endl;
+
+  cout<<"press any key to return menu";
+  getwchar();
+  getwchar();
+  system("cls");
+  showMenu();
+}
+void Listall()
+{
+  int i,j;
+  struct contact temp;
+  for(i=0;i<count-1;i++)
+  for(j=0;j<count-i-1;j++)
+  {
+    if(strcmp(contact[j].name,contact[j+1].name)>0)
+    {
+      temp=contact[j];
+      contact[j]=contact[j+1];
+      contact[j+1]=temp;
+    }
+  }
+  for(i=0;i<count;i++)
+  {
+    cout<<contact[i].name<<'\t'<<contact[i].address<<'\t'<<contact[i].telephone<<endl;
+  }
+  cout<<"press any key to return menu";
+  getwchar();
+  getwchar();
+  system("cls");
+  showMenu();
+}
+int main(){
+  showMenu();
+  return 0;
+  
+     
+}
+
